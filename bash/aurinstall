@@ -1,0 +1,35 @@
+#!/bin/bash
+# https://gitlab.com/patrickett
+# Simple script to speed up installs from the aur
+
+new_pkg=$1
+
+# moves shell home
+function go_home() {
+  # edit the part after home to decide install to
+  cd "${HOME}/git-grab/"
+}
+
+# clones repo + cd's that dir
+function clone() {
+  git clone $new_pkg
+  # new_pkg_dir="basename --suffix=".git" $new_pkg"
+  new_pkg_dir=`basename ${new_pkg} | sed -e 's/\..*$//'`
+  cd "$(pwd)/${new_pkg_dir}"
+}
+
+function install() {
+  while true; do
+      printf "\n"
+      read -p "Install $new_pkg_dir? [y/N]" yn
+      case $yn in
+          [Yy]* ) makepkg -si; break;;
+          [Nn]* ) exit;;
+          * ) echo "Didn't install" && exit ;;
+      esac
+  done
+}
+
+go_home
+clone
+install
