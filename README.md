@@ -1,3 +1,3 @@
-# scripts
+# Collection of some of my scripts
 
-Collection of my some scripts
+[aurinstall](/bash/aurinstall) - Speed up installing from aur
