@@ -1,0 +1,13 @@
+#!/bin/sh
+# https://gitlab.com/patrickett/scripts
+# Output mpd playlist number and progress info
+
+
+#                            18/36   1:58/4:15 (45%)
+
+while :
+do
+  progress=$(mpc -f %time% | awk '/^\[playing\]/ ' | sed -e "s/\[\playing] //" | sed -e "s/#//")
+  printf "%s \n" "$progress"
+  sleep 1
+done
